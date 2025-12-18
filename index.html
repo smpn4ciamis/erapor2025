@@ -15,7 +15,14 @@
       text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
       padding: 80px 0;
     }
-
+  .btn-disabled {
+    pointer-events: none;
+    opacity: 0.6;
+    background-color: #adb5bd !important;
+    border-color: #adb5bd !important;
+    color: #212529 !important;
+    box-shadow: none !important;
+  }
     .btn-outline-primary {
       transition: all 0.3s ease, transform 0.2s ease-in-out;
       border-radius: 50px;
@@ -208,11 +215,14 @@
   <!-- Link Section -->
   <div class="row justify-content-center mt-5">
   <div class="col-12 col-md-4 mb-3">
-    <a href="https://art-ellen-default-fixes.trycloudflare.com/"
-       class="btn btn-outline-primary w-100 btn-animated"
-       target="_blank" rel="noopener noreferrer">
-       LINK E-RAPOR 1
-    </a>
+<a href="https://art-ellen-default-fixes.trycloudflare.com/"
+   id="linkErapor"
+   class="btn btn-outline-primary w-100 btn-animated"
+   target="_blank"
+   rel="noopener noreferrer">
+   LINK E-RAPOR 1
+</a>
+
   </div>
 </div>
 </div>
@@ -224,39 +234,45 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
  
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const countdownEl = document.getElementById("countdown");
-    const targetDate = new Date("December 19, 2025 08:00:00").getTime();
+document.addEventListener('DOMContentLoaded', () => {
+  const countdownEl = document.getElementById("countdown");
+  const linkErapor = document.getElementById("linkErapor");
 
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
+  const targetDate = new Date("December 19, 2025 08:00:00").getTime();
 
-      if (distance <= 0) {
-        countdownEl.innerHTML = "✅ Pencetakan telah dimulai!";
-        clearInterval(interval);
-      } else {
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
 
-        countdownEl.innerHTML = `
-          <span style="color:#dc3545">${days} hari</span> 
-          ${hours} jam 
-          ${minutes} menit 
-          ${seconds} detik
-        `;
-        countdownEl.classList.remove("popIn");
-        void countdownEl.offsetWidth; // trigger reflow
-        countdownEl.classList.add("popIn");
-      }
+    if (distance <= 0) {
+      countdownEl.innerHTML = "🔒 Pencetakan telah dimulai<br><small>Link e-Rapor dinonaktifkan</small>";
+
+      // DISABLE LINK
+      linkErapor.classList.add("btn-disabled");
+      linkErapor.removeAttribute("href");
+      linkErapor.innerHTML = "LINK E-RAPOR DITUTUP";
+
+      clearInterval(interval);
+    } else {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `
+        <span style="color:#dc3545">${days} hari</span>
+        ${hours} jam
+        ${minutes} menit
+        ${seconds} detik
+      `;
     }
+  }
 
-    updateCountdown(); // show immediately
-    const interval = setInterval(updateCountdown, 1000);
-  });
+  updateCountdown();
+  const interval = setInterval(updateCountdown, 1000);
+});
 </script>
+
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   const toastEl = document.getElementById('liveToast');
