@@ -92,6 +92,11 @@
         font-size: 1rem;
       }
     }
+
+
+    .popIn {
+  animation: popIn 0.6s ease-in-out;
+}
   </style>
 </head>
 
@@ -251,6 +256,32 @@
     updateCountdown(); // show immediately
     const interval = setInterval(updateCountdown, 1000);
   });
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toastEl = document.getElementById('liveToast');
+  const toast = new bootstrap.Toast(toastEl, { delay: 7000 });
+  toast.show();
+});
+</script>
+
+
+  <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const infoModal = new bootstrap.Modal(document.getElementById('infoModal'));
+  infoModal.show();
+});
+</script>
+
+<script>
+function toggleDarkMode() {
+  document.body.classList.toggle("bg-dark");
+  document.body.classList.toggle("text-light");
+
+  document.querySelectorAll(".bg-light").forEach(el => {
+    el.classList.toggle("bg-dark");
+  });
+}
 </script>
 
 </body>
